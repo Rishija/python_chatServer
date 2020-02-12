@@ -29,7 +29,7 @@ if __name__ == "__main__":
 	# Add server socket to the list of readable connections
 	connected_list.append(server_socket)
 
-	print "\33[32m \t\t\t\tSERVER WORKING \33[0m" 
+	print("\33[32m \t\t\t\tSERVER WORKING \33[0m")
 
 	while 1:
         # Get the list sockets which are ready to be read through select
@@ -55,7 +55,7 @@ if __name__ == "__main__":
 				else:
                     #add name and address
 					record[addr]=name
-					print "Client (%s, %s) connected" % addr," [",record[addr],"]"
+					print("Client (%s, %s) connected" % addr," [",record[addr],"]")
 					sockfd.send("\33[32m\r\33[1m Welcome to chat room. Enter 'tata' anytime to exit\n\33[0m")
 					send_to_all(sockfd, "\33[32m\33[1m\r "+name+" joined the conversation \n\33[0m")
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
 					if data == "tata":
 						msg="\r\33[1m"+"\33[31m "+record[(i,p)]+" left the conversation \33[0m\n"
 						send_to_all(sock,msg)
-						print "Client (%s, %s) is offline" % (i,p)," [",record[(i,p)],"]"
+						print("Client (%s, %s) is offline" % (i,p)," [",record[(i,p)],"]")
 						del record[(i,p)]
 						connected_list.remove(sock)
 						sock.close()
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 				except:
 					(i,p)=sock.getpeername()
 					send_to_all(sock, "\r\33[31m \33[1m"+record[(i,p)]+" left the conversation unexpectedly\33[0m\n")
-					print "Client (%s, %s) is offline (error)" % (i,p)," [",record[(i,p)],"]\n"
+					print("Client (%s, %s) is offline (error)" % (i,p)," [",record[(i,p)],"]\n")
 					del record[(i,p)]
 					connected_list.remove(sock)
 					sock.close()
