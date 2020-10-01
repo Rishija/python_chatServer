@@ -1,6 +1,5 @@
 import socket, select, string, sys
-import socket, sys, threading, getpass, os, pickle
-from datetime import datetime
+
 
 
 #Helper function (formatting)
@@ -34,35 +33,6 @@ def main():
     s.send(name.encode('utf-8'))
     display()
 
-    def send():
-        while True:
-            try:
-                sys.stdout.write(f"\033[1;32m{user} (me): \033[0m \033[;1m"); sys.stdout.flush()
-                message = input()
-                
-                c.send(pickle.dumps((user, message)))
-            except:
-                print("Error while Sending!")
-
-    def receive():
-        while True:
-            try:
-                msg = c.recv(1024)
-                USER, MESSAGE = pickle.loads(msg)
-
-                print(f"\n{USER}: {MESSAGE}")
-                sys.stdout.write(f"\033[1;32m{user} (me): \033[0m \033[;1m"); sys.stdout.flush()
-            except:
-                break
-        
-
-    send_thread = threading.Thread(target=send)
-    receive_thread = threading.Thread(target=receive)
-
-
-    send_thread.start()
-    receive_thread.start()
-'''
     while 1:
         socket_list = [sys.stdin, s]
         
@@ -85,7 +55,6 @@ def main():
                 msg=sys.stdin.readline()
                 s.send(msg.encode('utf-8'))
                 display()
-'''
 
 if __name__ == "__main__":
     main()
